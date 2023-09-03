@@ -1,5 +1,4 @@
-const e = require('express');
-const {Model, Schema} = require('mongoose');
+const {model, Schema} = require('mongoose');
 
 const userSchema = new Schema({ 
     name: String,
@@ -16,5 +15,9 @@ const userSchema = new Schema({
         enum:['pending', 'approved','declined','blocked ']
     }
 },{
-    timestamps: true
+    timestamps: true,
+    id: true
 })
+
+const UserModel = model('User', userSchema);
+module.exports = UserModel;
