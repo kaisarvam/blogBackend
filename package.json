@@ -1,0 +1,22 @@
+{
+  "name": "blog-site-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test-dev": "nodemon --ignore ./db --exec node app.js",
+    "dev": "node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-openapi-validator": "^5.0.5",
+    "mongoose": "^7.4.5",
+    "nodemon": "^2.0.22",
+    "swagger-ui-express": "^4.6.3",
+    "yamljs": "^0.3.0"
+  }
+}
