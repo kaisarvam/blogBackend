@@ -1,15 +1,15 @@
-const User = require('./model/UserModel');
-const {faker} = require('@faker-js/faker');
+const User = require("./src/model/UserModel");
+const { faker } = require("@faker-js/faker");
 
-const seedUser =(noOfUsers=5)=>{
-    for(let i=0; i<noOfUsers; i++){
-        const user = new User({
-            name: faker.person.fullName(),
-            email: faker.internet.email(),
-            password: faker.internet.password(),  
-        });
-        user.save();
-    }
-}
+const seedUser = (noOfUsers = 5) => {
+  for (let i = 0; i < noOfUsers; i++) {
+    const user = new User({
+      name: faker.person.fullName(),
+      email: faker.internet.email(),
+      password: faker.internet.password(),
+    });
+    user.save();
+  }
+};
 
-module.exports = {seedUser};
+module.exports = { seedUser };
