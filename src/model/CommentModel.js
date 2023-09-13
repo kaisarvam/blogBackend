@@ -12,9 +12,16 @@ const commentSchema = new Schema(
       type: Schema.ObjectId,
       ref: "User",
     },
+    articleId: {
+      type: Schema.ObjectId,
+      ref: "Article",
+    },
   },
   {
     timestamps: true,
     id: true,
   }
 );
+
+const CommentModel = model("Comment", commentSchema);
+module.exports = { CommentModel };

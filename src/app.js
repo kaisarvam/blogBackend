@@ -1,38 +1,26 @@
-require("dotenv").config();
 const express = require("express");
-const swaggerUi = require("swagger-ui-express");
-const YAML = require("yamljs");
-const swaggerDocument = YAML.load("./swagger.yaml");
-const OpenApiValidator = require("express-openapi-validator");
-const mongoose = require("mongoose");
-const { seedUser } = require("../seed");
-
-const PORT = process.env.PORT || 3000;
+const applyMiddleware = require("./middleware");
+const routes = require("./routes");
 
 //express app
 const app = express();
-app.use(express.json());
-app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
-app.use(
-  OpenApiValidator.middleware({
-    apiSpec: "./swagger.yaml",
-  })
-);
-
-app.use((err, req, res, next) => {
-  req.user = {
-    id: 999,
-    name: "John Doe",
-  };
-  next();
-});
+applyMiddleware(app);
+app.use(routes);
 
 app.get("/health", (req, res) => {
-  res.status(200).json({ status: "UP", health: "OK" });
+  res.status(200).json({ status: "UP", health: "OK", user: req.user });
 });
 
-app.use((err, req, res, next) => {
+app.use("*", (_req, _res, next) => {
+  const error = new Error("Requested Resource not found !!");
+  error.code = 404;
+  error.error = "Not Found";
+  next(error);
+});
+
+app.use((err, _req, res, next) => {
+  console.log("Genarated 404 Error");
+  console.log({ message: err.message, code: err.code, error: err.error });
   // format error
   res.status(err.status || 500).json({
     message: err.message,
@@ -40,22 +28,4 @@ app.use((err, req, res, next) => {
   });
 });
 
-let connectionURL = process.env.DB_CONNECTION_URL;
-connectionURL = connectionURL.replace("<username>", process.env.DB_USER_NAME);
-connectionURL = connectionURL.replace("<password>", process.env.DB_PASSWORD);
-connectionURL = `${connectionURL}/${process.env.DB_NAME}?${process.env.DB_URL_QUERY}`;
-
-console.log("Connection url :", connectionURL);
-
-mongoose
-  .connect(connectionURL, {})
-  .then(() => {
-    console.log("Connected to DB");
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
-      seedUser();
-    });
-  })
-  .catch((err) => {
-    console.log("Error connecting to DB", err);
-  });
+module.exports = app;

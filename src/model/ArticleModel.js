@@ -13,9 +13,9 @@ const articleSchema = new Schema(
       type: Schema.ObjectId,
       ref: "User",
     },
-    article: {
+    comment: {
       type: Schema.ObjectId,
-      ref: "Article",
+      ref: "Comment",
     },
   },
   {
@@ -25,4 +25,4 @@ const articleSchema = new Schema(
 );
 
 const ArticleModel = model("Article", articleSchema);
-module.exports = ArticleModel;
+module.exports = { ArticleModel };
