@@ -8,10 +8,10 @@ router
 
 router
   .route("/api/v1/articles/:id")
-  .get((req, res) => {})
-  .put((req, res) => {})
-  .patch((req, res) => {})
-  .delete((req, res) => {});
+  .get(articlesController.findSingle)
+  .put(articlesController.updateItem)
+  .patch(articlesController.updateItemPatch)
+  .delete(articlesController.removeItem);
 
 router.get("/test", (req, res) => {
   res.json({ message: "Hello" });

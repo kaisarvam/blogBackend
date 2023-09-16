@@ -20,7 +20,11 @@ app.use("*", (_req, _res, next) => {
 
 app.use((err, _req, res, next) => {
   console.log("Genarated 404 Error");
-  console.log({ message: err.message, code: err.code, error: err.error });
+  console.log({
+    message: err.message,
+    code: err.code,
+    error: err.error,
+  });
   // format error
   res.status(err.status || 500).json({
     message: err.message,
