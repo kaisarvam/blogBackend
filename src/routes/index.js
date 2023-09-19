@@ -1,17 +1,22 @@
 const router = require("express").Router();
-const { controllers: articlesController } = require("../api/v1/article");
+const { controllers: articlesControllerV1 } = require("../api/v1/article");
+const { controllers: articlesControllerV2 } = require("../api/v2/article");
 
 router
   .route("/api/v1/articles/")
-  .get(articlesController.findAll)
-  .post(articlesController.create);
+  .get(articlesControllerV1.findAll)
+  .post(articlesControllerV1.create);
 
 router
   .route("/api/v1/articles/:id")
-  .get(articlesController.findSingle)
-  .put(articlesController.updateItem)
-  .patch(articlesController.updateItemPatch)
-  .delete(articlesController.removeItem);
+  .get(articlesControllerV1.findSingle)
+  .put(articlesControllerV1.updateItem)
+  .patch(articlesControllerV1.updateItemPatch)
+  .delete(articlesControllerV1.removeItem);
+
+router
+  .route("/api/v2/articles/:id")
+  .patch(articlesControllerV2.updateItemPatch);
 
 router.get("/test", (req, res) => {
   res.json({ message: "Hello" });

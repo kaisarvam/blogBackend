@@ -2,6 +2,7 @@ const { de } = require("@faker-js/faker");
 const defaults = require("../../config/defaults");
 const { ArticleModel } = require("../../model");
 const { notFound } = require("../../utils");
+const updateArticleV2 = require("./updateArticleV2");
 
 /**
  * Create new article
@@ -195,4 +196,5 @@ module.exports = {
   updateOrCreate,
   updateArticle,
   removeArticle,
+  updateArticleV2,
 };

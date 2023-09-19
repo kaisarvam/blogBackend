@@ -21,6 +21,7 @@ const articleSchema = new Schema(
   {
     timestamps: true,
     id: true,
+    strict: false,
   }
 );
 

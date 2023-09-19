@@ -21,7 +21,16 @@ const findAll = async (req, res, next) => {
 
     const data = getTransformedData({
       items: articles,
-      selection: ["title", "body", "cover", "status", "author", "id"],
+      selection: [
+        "title",
+        "body",
+        "cover",
+        "status",
+        "author",
+        "id",
+        "createdAt",
+        "updatedAt",
+      ],
       path: "/articles",
     });
     console.log("transformed data :", data);
